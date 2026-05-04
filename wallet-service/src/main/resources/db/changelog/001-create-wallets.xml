@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="001" author="wallet">
+        <createTable tableName="wallets">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="balance" type="decimal(19,2)" defaultValueNumeric="0.00">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addCheckConstraint
+                tableName="wallets"
+                constraintName="chk_balance_non_negative"
+                condition="balance >= 0"/>
+    </changeSet>
+
+</databaseChangeLog>
